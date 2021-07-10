@@ -17,7 +17,7 @@ draw = ImageDraw.Draw(img)
 # get api data
 
 try:
-  f = urlopen('http://pi.hole/admin/api.php')
+  f = urlopen('http://192.168.1.122/admin/api.php')
   json_string = f.read()
   parsed_json = json.loads(json_string)
   adsblocked = parsed_json['ads_blocked_today']
