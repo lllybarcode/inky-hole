@@ -1,7 +1,7 @@
 import os
 import json
-import urllib2
-from inky import InkyPHAT
+from urllib.request import urlopen
+from inky.auto import auto
 from PIL import Image, ImageFont, ImageDraw
 from font_fredoka_one import FredokaOne
 
@@ -17,7 +17,7 @@ draw = ImageDraw.Draw(img)
 # get api data
 
 try:
-  f = urllib2.urlopen('http://pi.hole/admin/api.php')
+  f = urlopen('http://pi.hole/admin/api.php')
   json_string = f.read()
   parsed_json = json.loads(json_string)
   adsblocked = parsed_json['ads_blocked_today']
@@ -26,11 +26,11 @@ try:
 except:
   queries = '?'
   adsblocked = '?'
-  ratio = '?'
+  ratioblocked = 0
 
 font = ImageFont.truetype(FredokaOne, 32)
 
-inky_display = InkyPHAT("red")
+inky_display = auto()
 inky_display.set_border(inky_display.WHITE)
 
 draw.text((20,20), str(adsblocked), inky_display.BLACK, font)
