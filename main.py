@@ -20,6 +20,7 @@ try:
   f = urlopen('http://192.168.1.122/admin/api.php')
   json_string = f.read()
   parsed_json = json.loads(json_string)
+  queries = parsed_json['dns_queries_today']
   adsblocked = parsed_json['ads_blocked_today']
   ratioblocked = parsed_json['ads_percentage_today']
   f.close()
@@ -28,13 +29,14 @@ except:
   adsblocked = '?'
   ratioblocked = 0
 
-font = ImageFont.truetype(FredokaOne, 32)
+font = ImageFont.truetype(FredokaOne, 28)
 
 inky_display = auto()
 inky_display.set_border(inky_display.WHITE)
 
-draw.text((20,20), str(adsblocked), inky_display.BLACK, font)
-draw.text((20,50), str("%.1f" % round(ratioblocked,2)) + "%", inky_display.BLACK, font)
+draw.text((10,17), str(queries), inky_display.BLACK, font)
+draw.text((10,45), str(adsblocked), inky_display.BLACK, font)
+draw.text((10,73), str("%.1f" % round(ratioblocked,2)) + "%", inky_display.YELLOW, font)
 
 inky_display.set_image(img)
 
